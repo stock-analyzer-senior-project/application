@@ -6,6 +6,9 @@ import { Picker } from "@react-native-picker/picker";
 import { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { TextInput } from "react-native";
+import { Pressable } from "react-native";
+import { TouchableOpacity } from "react-native";
 
 export default function App() {
   const [selectedCompany, setSelectedCompany] = useState();
@@ -23,6 +26,7 @@ export default function App() {
         <Stack.Screen name="Explanation" component={ExplanationScreen} />
         <Stack.Screen name="How" component={HowScreen} />
         <Stack.Screen name="Search" component={SearchScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -46,6 +50,9 @@ const HomeScreen = ({ navigation }) => {
       <Button
         title="Company Search"
         onPress={() => navigation.navigate("Search", { name: "Jane" })}
+      />
+      <Button title="Login"
+      onPress={() => navigation.navigate("Login", {name: "Jane" })} 
       />
     </View>
   );
@@ -86,6 +93,47 @@ const SearchScreen = ({ navigation, route }) => {
   return <Text>This is the search screen</Text>;
 };
 
+const onPress = () => alert("Pick up the phone baby");
+
+const LoginScreen = ({navigation, route}) => {
+  return(
+    <View>
+    <Text style={styles.title}> Welcome Back! </Text>
+    <Pressable>
+            <View style={styles.form}>
+              <Text style={styles.label}>Email: </Text>
+              <TextInput
+                autoCapitalize="none"
+                autoCompleteType="email"
+                autoCorrect={false}
+                keyboardType="email-address"
+                returnKeyType="next"
+                style={styles.textInput}
+                textContentType="username"
+              />
+            </View>
+          </Pressable>
+  <Pressable>
+    <View style={styles.form}>
+      <Text style={styles.label}>Password: </Text>
+      <TextInput
+       autoCapitalize="none"
+       autoCompleteType="password"
+       autoCorrect={false}
+       returnKeyType="done"
+       secureTextEntry
+       style={styles.textInput}
+       textContentType="password"
+      />
+    </View>
+  </Pressable>
+  <TouchableOpacity style={styles.submitButton} onPress={onPress}>
+    <Text style={styles.buttonText}>Login</Text>
+  </TouchableOpacity>
+  </View>
+  )
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -93,10 +141,58 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  title: {
+    textAlign : "center",
+    margin: 20,
+    flex: 1,
+    fontSize: 36,
+    left: "50%",
+  },
   text: {
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
   },
+  textInput: {
+    color: '#FFFFFF',
+    flex: 1,
+  },
+  form: {
+    alignItems: 'center',
+    backgroundColor: 'rgb(58, 58, 60)',
+    borderRadius: 8,
+    flexDirection: 'row',
+    height: 48,
+    borderWidth : 2,
+    width : 300,
+    left : "38%",
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal : 16,
+    marginBottom : 10,
+  },
+  label: {
+    color: 'rgba(235, 235, 245, 0.6)',
+    fontSize: 15,
+    fontWeight: '400',
+    lineHeight: 20,
+    width: 80,
+  },
+  submitButton : {
+    height : 50,
+    width : 150,
+    left : "50%",
+    backgroundColor: '#646464',
+    borderRadius: 8,
+  },
+  buttonText : {
+    color: 'rgba(235, 235, 245, 0.6)',
+    fontSize: 15,
+    fontWeight: '400',
+    lineHeight: 20,
+    width: 80,
+    textAlign : "center",
+    textAlignVertical : "center"
+  }
 });
