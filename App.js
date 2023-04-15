@@ -98,37 +98,10 @@ const HowScreen = ({ navigation, route }) => {
 };
 const SearchScreen = ({ navigation, route }) => {
   return (
-    <View
-      style={{
-        margin: 15,
-        width: "90%",
-      }}
-    >
-      <View
-        style={{
-          padding:10,
-          flexDirection: "row",
-          width: "95%",
-          backgroundColor: "#d9dbda",
-          borderRadius:10,
-          alignItems: "center",
-        }}
-      >
-        <Feather
-          name="search"
-          size={20}
-          color="black"
-          style={{
-            marginLeft: 1,
-            marginRight: 4
-          }}
-        />
-        <TextInput 
-          style = {{
-            fontsize: 15
-          }}
-          placeholder="Search Ticker Here"
-        />
+    <View style={{ margin: 15, width: "90%",}}>
+      <View style={{padding:10,flexDirection: "row",width: "95%",backgroundColor: "#d9dbda",borderRadius:10,alignItems: "center",}}>
+        <Feather name="search" size={20} color="black" style={{marginLeft: 1,marginRight: 4}}/>
+        <TextInput style = {{fontsize: 15}} placeholder="Search Ticker Here"/>
       </View>
     </View>
   );
