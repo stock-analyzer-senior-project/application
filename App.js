@@ -1,18 +1,22 @@
 import * as React from "react";
+import {Feather} from "react-native-feather";
 import { Button } from "react-native";
+//import { SearchBar } from 'react-native-elements';
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import { Picker } from "@react-native-picker/picker";
+//import { Picker } from "@react-native-picker/picker";
 import { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { TextInput } from "react-native";
-import { Pressable } from "react-native";
-import { TouchableOpacity } from "react-native";
-
+import { TextInput, Pressable, TouchableOpacity, FlatList } from "react-native";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+//import filter from "lodash.filter";
 
-import{auth} from "./firebase"
+import {auth} from "./firebase"
+import {database as db} from "./firebase"
+import { Component } from "@firebase/component";
+//import { data } from "./db";
+
 
 export default function App() {
   const [selectedCompany, setSelectedCompany] = useState();
@@ -57,9 +61,6 @@ const HomeScreen = ({ navigation }) => {
         title="Company Search"
         onPress={() => navigation.navigate("Search", { name: "Jane" })}
       />
-      {/* <Button title="Login"
-      onPress={() => navigation.navigate("Login", {name: "Jane" })} 
-      /> */}
     </View>
   );
 };
@@ -96,7 +97,41 @@ const HowScreen = ({ navigation, route }) => {
   return <Text>This is {route.params.name}'s profile</Text>;
 };
 const SearchScreen = ({ navigation, route }) => {
-  return <Text>This is the search screen</Text>;
+  return (
+    <View
+      style={{
+        margin: 15,
+        width: "90%",
+      }}
+    >
+      <View
+        style={{
+          padding:10,
+          flexDirection: "row",
+          width: "95%",
+          backgroundColor: "#d9dbda",
+          borderRadius:10,
+          alignItems: "center",
+        }}
+      >
+        <Feather
+          name="search"
+          size={20}
+          color="black"
+          style={{
+            marginLeft: 1,
+            marginRight: 4
+          }}
+        />
+        <TextInput 
+          style = {{
+            fontsize: 15
+          }}
+          placeholder="Search Ticker Here"
+        />
+      </View>
+    </View>
+  );
 };
 
 const LoginScreen = ({navigation, route}) => {
@@ -178,6 +213,8 @@ const LoginScreen = ({navigation, route}) => {
   </View>
   )
 }
+
+//***STYLESHEET***//
 
 const styles = StyleSheet.create({
   container: {

@@ -23,5 +23,5 @@ const analytics = getAnalytics(app);
 const database = getDatabase(app);
 
 const auth = getAuth();
-
+export {database};
 export {auth};
