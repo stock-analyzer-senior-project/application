@@ -21,6 +21,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen name="Login" component={LoginScreen} /> 
         <Stack.Screen
           name="Home"
           component={HomeScreen}
@@ -30,11 +31,12 @@ export default function App() {
         <Stack.Screen name="Explanation" component={ExplanationScreen} />
         <Stack.Screen name="How" component={HowScreen} />
         <Stack.Screen name="Search" component={SearchScreen} />
-        <Stack.Screen name="Login" component={LoginScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
+
+//***Each Page of the Application***
 
 const HomeScreen = ({ navigation }) => {
   return (
@@ -55,9 +57,9 @@ const HomeScreen = ({ navigation }) => {
         title="Company Search"
         onPress={() => navigation.navigate("Search", { name: "Jane" })}
       />
-      <Button title="Login"
+      {/* <Button title="Login"
       onPress={() => navigation.navigate("Login", {name: "Jane" })} 
-      />
+      /> */}
     </View>
   );
 };
@@ -122,6 +124,7 @@ const LoginScreen = ({navigation, route}) => {
     // Signed in 
     const user = userCredential.user;
     console.log("Signed in as: ", user.email);
+    navigation.navigate("Home");
     // ...
   })
   .catch((error) => {
