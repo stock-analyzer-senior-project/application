@@ -13,56 +13,66 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } f
 //import filter from "lodash.filter";
 import { TextInputProps } from "react-native";
 import SearchFilter from "./components/SearchFilter"
-import {auth} from "./firebase"
+import {auth, database} from "./firebase"
 //import {database as db} from "./firebase"
 import { Component } from "@firebase/component";
 import { set } from "lodash";
 import { data } from "./db";
+import { createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { Ionicons } from '@expo/vector-icons';
 
+const Tab = createBottomTabNavigator();
 
-export default function App() {
-  const Stack = createNativeStackNavigator();
+let email = ''
 
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Login" component={LoginScreen} /> 
-        <Stack.Screen
+function TabNavigator()
+{
+  return(
+  <Tab.Navigator>
+        <Tab.Screen
           name="Home"
           component={HomeScreen}
           options={{ title: "Welcome" }}
         />
-        <Stack.Screen name="Purpose" component={PurposeScreen} />
-        <Stack.Screen name="Explanation" component={ExplanationScreen} />
-        <Stack.Screen name="How" component={HowScreen} />
-        <Stack.Screen name="Search" component={SearchScreen} />
-        <Stack.Screen name="Stock Information" component={InfoScreen}/>
+        <Tab.Screen name="Purpose" component={PurposeScreen} />
+        <Tab.Screen name="Explanation" component={ExplanationScreen} />
+        <Tab.Screen name="How" component={HowScreen} />
+        <Tab.Screen name="Search" component={StockInfoStack} />
+    </Tab.Navigator>
+      )
+}
+
+
+const Stack = createNativeStackNavigator();
+
+const StockInfoStack = () => {
+   
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Search Screen" component={SearchScreen} options={{headerShown : false}}/>
+      <Stack.Screen name="Stock Information" component={InfoScreen} />
+    </Stack.Navigator>
+  )
+}
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Home" component={TabNavigator} options = {{headerShown : false}}/>
       </Stack.Navigator>
     </NavigationContainer>
+
   );
 }
 
 //***Each Page of the Application***
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = ({ navigation, route }) => {
   return (
     <View>
-      <Button
-        title="Our purpose"
-        onPress={() => navigation.navigate("Purpose", { name: "Jane" })}
-      />
-      <Button
-        title="What is ESG Data"
-        onPress={() => navigation.navigate("Explanation", { name: "Jane" })}
-      />
-      <Button
-        title="How to Invest with ESG Data"
-        onPress={() => navigation.navigate("How", { name: "Jane" })}
-      />
-      <Button
-        title="Company Search"
-        onPress={() => navigation.navigate("Search", { name: "Jane" })}
-      />
+      
     </View>
   );
 };
@@ -148,7 +158,7 @@ const LoginScreen = ({navigation, route}) => {
     // Signed in 
     const user = userCredential.user;
     console.log("Signed in as: ", user.email);
-    navigation.navigate("Home");
+    navigation.navigate("Home", {screen : "How", params : {name : user.email}});
     // ...
   })
   .catch((error) => {
@@ -157,7 +167,6 @@ const LoginScreen = ({navigation, route}) => {
   });
 
   }
-
   return(
     <View>
     <Text style={styles.title}> Welcome Back! </Text>

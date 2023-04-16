@@ -11,10 +11,11 @@
   "dependencies": {
     "@expo/webpack-config": "^18.0.1",
     "@react-native-picker/picker": "^2.4.9",
+    "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
     "es7": "^1.0.8-beta.4",
-    "expo": "^48.0.10",
+    "expo": "^48.0.11",
     "expo-status-bar": "~1.4.4",
     "firebase": "^9.19.1",
     "lodash": "^4.17.21",
