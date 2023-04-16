@@ -13,12 +13,10 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } f
 //import filter from "lodash.filter";
 import { TextInputProps } from "react-native";
 import SearchFilter from "./components/SearchFilter"
-
 import {auth} from "./firebase"
 //import {database as db} from "./firebase"
 import { Component } from "@firebase/component";
 import { set } from "lodash";
-
 import { data } from "./db";
 
 
