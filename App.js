@@ -172,6 +172,10 @@ const LoginScreen = ({navigation, route}) => {
 
   return(
     <View>
+      <Image
+      style={{width: 397, height: 300, bottom:40}}
+      source = {require('./assets/StockAnalyzer.png')}
+      resizeMode={'contain'}/>
     <Text style={styles.title}> Welcome Back! </Text>
     <Pressable>
       <View style={styles.form}>
@@ -250,6 +254,7 @@ const styles = StyleSheet.create({
     borderWidth : 2,
     width : 300,
     left : "62%",
+    top: "0%",
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal : 16,
@@ -266,7 +271,7 @@ const styles = StyleSheet.create({
     height : 50,
     width : 150,
     left : "30%",
-    top: "10%",
+    top: "%",
     backgroundColor: '#646464',
     borderRadius: 25
   },
@@ -274,7 +279,7 @@ const styles = StyleSheet.create({
     height : 50,
     width : 150,
     left : "30%",
-    top: "12%",
+    top: "1%",
     backgroundColor: '#646464',
     borderRadius: 25
   },
