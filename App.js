@@ -29,12 +29,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ title: "Welcome" }}
-        />
+        {/* <Stack.Screen name="Login" component={LoginScreen} /> */}
+        <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Purpose" component={PurposeScreen} />
         <Stack.Screen name="Explanation" component={ExplanationScreen} />
         <Stack.Screen name="How" component={HowScreen} />
@@ -140,8 +136,8 @@ const InfoScreen = ({ navigation, route }) => {
   console.log(route.params.paramKey);
   // return <Text>{route.params.paramKey.Symbol}</Text>;
   return (
-    <View>
-      <Text>Company: {route.params.paramKey.Name}</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>{route.params.paramKey.Name}</Text>
       <Text>Company: {route.params.paramKey.Symbol}</Text>
       <Text>ESG Rating: {route.params.paramKey.Rating}</Text>
     </View>
