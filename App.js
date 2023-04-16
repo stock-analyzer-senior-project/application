@@ -38,6 +38,7 @@ export default function App() {
         <Stack.Screen name="Explanation" component={ExplanationScreen} />
         <Stack.Screen name="How" component={HowScreen} />
         <Stack.Screen name="Search" component={SearchScreen} />
+        <Stack.Screen name="Stock Information" component={InfoScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -110,6 +111,13 @@ const SearchScreen = ({ navigation, route }) => {
       </View>
       <SearchFilter data={data} input={input} setInput={setInput}/>
     </View>
+  );
+};
+const InfoScreen = ({navigation, route}) => {
+  return (
+    <Text>
+      Stock info!
+    </Text>
   );
 };
 
