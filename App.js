@@ -18,6 +18,7 @@ import {auth} from "./firebase"
 import { Component } from "@firebase/component";
 import { set } from "lodash";
 import { data } from "./db";
+import { Image } from 'react-native'
 
 
 export default function App() {
@@ -30,7 +31,7 @@ export default function App() {
         <Stack.Screen
           name="Home"
           component={HomeScreen}
-          options={{ title: "Welcome" }}
+          options={{ title: "Welcome",headerTitleAlign: 'center'}}
         />
         <Stack.Screen name="Purpose" component={PurposeScreen} />
         <Stack.Screen name="Explanation" component={ExplanationScreen} />
@@ -47,7 +48,12 @@ export default function App() {
 const HomeScreen = ({ navigation }) => {
   return (
     <View>
+      <Image
+      style={{width: 397, height: 350, bottom:40}}
+      source = {require('./assets/ESG_11zon.jpg')}
+      resizeMode={'contain'}/>
       <Button
+        radius={500}
         title="Our purpose"
         onPress={() => navigation.navigate("Purpose", { name: "Jane" })}
       />
@@ -276,5 +282,11 @@ const styles = StyleSheet.create({
     top: "30%",
     textAlign : "center",
     textAlignVertical : "center"
+  },
+  image: {
+    flex: 1,
+    width: 20,
+    height: 20,
+    resizeMode: 'contain'
   }
 });
