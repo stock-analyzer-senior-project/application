@@ -116,10 +116,9 @@ const SearchScreen = ({ navigation, route }) => {
 //This is where clicking on a ticker will take you
 const InfoScreen = ({navigation, route}) => {
   //Before returning here, we need to update info based on what stock it is
+  console.log(route.params.paramKey)
   return (
-     
-    <Text>Hello</Text>
-    
+    <Text>{route.params.paramKey}</Text>
   );
 };
 

@@ -28,7 +28,7 @@ const Filter = ({data, input, setInput}) => {
                             <Text style={{fontSize:14,fontWeight:"bold"}}>{item.Name}</Text>
                             <Button
                                     title = {item.Symbol}
-                                    onPress={() => navigation.navigate("Stock Information", { name: "Slide 1" })}
+                                    onPress={() => navigation.navigate("Stock Information", { name: "Slide 1", paramKey: item.Name})}
                             />
                             <Text style={{borderColor:"gray",borderWidth:1,height:1,marginTop:5}}/>
                         </View>
