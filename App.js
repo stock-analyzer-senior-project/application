@@ -56,7 +56,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Login" component={LoginScreen} />
+        {/* <Stack.Screen name="Login" component={LoginScreen} />*/}
         <Stack.Screen name="Home" component={TabNavigator} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
@@ -144,9 +144,19 @@ const InfoScreen = ({ navigation, route }) => {
   }
   return (
     <View>
-      <Text>Company: {route.params.paramKey.Name}</Text>
-      <Text>Company: {route.params.paramKey.Symbol}</Text>
-      <Text>
+      <Text
+        style={{
+          textAlign: 'center',
+          fontSize: 30,
+        }}
+      >
+        {route.params.paramKey.Name} ({route.params.paramKey.Symbol})
+      </Text>
+      <Text
+        style={{
+          padding: 20,
+        }}
+      >
         ESG Rating: {route.params.paramKey.Rating} ({explanation})
       </Text>
     </View>
