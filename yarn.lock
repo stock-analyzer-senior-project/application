@@ -4458,6 +4458,11 @@ es-module-lexer@^0.9.0:
   resolved "https://registry.npmjs.org/es-module-lexer/-/es-module-lexer-0.9.3.tgz"
   integrity sha512-1HQ2M2sPtxwnvOvT1ZClHyQDiggdNjURWpY2we6aMKCQiUVxTmVs2UYPLIrD84sS+kMdUwfBSylbJPwNnBrnHQ==
 
+es7@^1.0.8-beta.4:
+  version "1.0.8-beta.4"
+  resolved "https://registry.yarnpkg.com/es7/-/es7-1.0.8-beta.4.tgz#14860cdc43eaca0a4ffeb55afe53dc373d2fa767"
+  integrity sha512-yFW+gkV/M/MPluFjf0GPB2lVl8lBt52odU77tSaPsLR7sRoQ8LTVY8lL6WqqqAoJcZXxXtILnX5QKqBODK0SQw==
+
 escalade@^3.1.1:
   version "3.1.1"
   resolved "https://registry.npmjs.org/escalade/-/escalade-3.1.1.tgz"

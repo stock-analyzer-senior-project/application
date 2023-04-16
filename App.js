@@ -11,15 +11,18 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { TextInput, Pressable, TouchableOpacity, FlatList } from "react-native";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 //import filter from "lodash.filter";
+import { TextInputProps } from "react-native";
+import SearchFilter from "./components/SearchFilter"
 
 import {auth} from "./firebase"
-import {database as db} from "./firebase"
+//import {database as db} from "./firebase"
 import { Component } from "@firebase/component";
-//import { data } from "./db";
+import { set } from "lodash";
+
+import { data } from "./db";
 
 
 export default function App() {
-  const [selectedCompany, setSelectedCompany] = useState();
   const Stack = createNativeStackNavigator();
 
   return (
@@ -97,12 +100,15 @@ const HowScreen = ({ navigation, route }) => {
   return <Text>This is {route.params.name}'s profile</Text>;
 };
 const SearchScreen = ({ navigation, route }) => {
+  const [input, setInput] = useState("");
   return (
     <View style={{ margin: 15, width: "90%",}}>
-      <View style={{padding:10,flexDirection: "row",width: "95%",backgroundColor: "#d9dbda",borderRadius:10,alignItems: "center",}}>
+      <View style={{padding:10,flexDirection: "row",width: "102%",backgroundColor: "#d9dbda",borderRadius:10,alignItems: "center",}}>
+        {/* Feather is the search bar */}
         <Feather name="search" size={20} color="black" style={{marginLeft: 1,marginRight: 4}}/>
-        <TextInput style = {{fontsize: 15}} placeholder="Search Ticker Here"/>
+        <TextInput value={input} onChangeText={(text) => setInput(text)} style = {{fontsize: 15}} placeholder="Search Ticker Here"/>
       </View>
+      <SearchFilter data={data} input={input} setInput={setInput}/>
     </View>
   );
 };
@@ -146,21 +152,21 @@ const LoginScreen = ({navigation, route}) => {
     <View>
     <Text style={styles.title}> Welcome Back! </Text>
     <Pressable>
-            <View style={styles.form}>
-              <Text style={styles.label}>Email: </Text>
-              <TextInput
-                autoCapitalize="none"
-                autoCompleteType="email"
-                autoCorrect={false}
-                value = {email}
-                onChangeText = {text => setEmail(text)}
-                keyboardType="email-address"
-                returnKeyType="next"
-                style={styles.textInput}
-                textContentType="username"
-              />
-            </View>
-          </Pressable>
+      <View style={styles.form}>
+        <Text style={styles.label}>Email: </Text>
+          <TextInput
+            autoCapitalize="none"
+            autoCompleteType="email"
+            autoCorrect={false}
+            value = {email}
+            onChangeText = {text => setEmail(text)}
+            keyboardType="email-address"
+            returnKeyType="next"
+            style={styles.textInput}
+            textContentType="username"
+          />
+      </View>
+    </Pressable>
   <Pressable>
     <View style={styles.form}>
       <Text style={styles.label}>Password: </Text>
@@ -180,7 +186,7 @@ const LoginScreen = ({navigation, route}) => {
   <TouchableOpacity style={styles.submitButton} onPress={handleLogin}>
     <Text style={styles.buttonText}>Login</Text>
   </TouchableOpacity>
-  <TouchableOpacity style={styles.submitButton} onPress={handleRegister}>
+  <TouchableOpacity style={styles.registerButton} onPress={handleRegister}>
     <Text style={styles.buttonText}>Register</Text>
   </TouchableOpacity>
   </View>
@@ -221,7 +227,7 @@ const styles = StyleSheet.create({
     height: 48,
     borderWidth : 2,
     width : 300,
-    left : "38%",
+    left : "62%",
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal : 16,
@@ -237,16 +243,27 @@ const styles = StyleSheet.create({
   submitButton : {
     height : 50,
     width : 150,
-    left : "50%",
+    left : "30%",
+    top: "10%",
     backgroundColor: '#646464',
-    borderRadius: 8,
+    borderRadius: 25
+  },
+  registerButton : {
+    height : 50,
+    width : 150,
+    left : "30%",
+    top: "12%",
+    backgroundColor: '#646464',
+    borderRadius: 25
   },
   buttonText : {
     color: 'rgba(235, 235, 245, 0.6)',
-    fontSize: 15,
+    fontSize: 20,
     fontWeight: '400',
     lineHeight: 20,
     width: 80,
+    left: "22%",
+    top: "30%",
     textAlign : "center",
     textAlignVertical : "center"
   }
