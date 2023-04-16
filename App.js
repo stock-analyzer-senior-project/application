@@ -19,7 +19,7 @@ import { Component } from "@firebase/component";
 import { set } from "lodash";
 import { data } from "./db";
 import { Image } from 'react-native'
-
+import {useFonts} from 'expo-font'
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -33,9 +33,9 @@ export default function App() {
           component={HomeScreen}
           options={{ title: "Welcome",headerTitleAlign: 'center'}}
         />
-        <Stack.Screen name="Purpose" component={PurposeScreen} />
-        <Stack.Screen name="Explanation" component={ExplanationScreen} />
-        <Stack.Screen name="How" component={HowScreen} />
+        <Stack.Screen name="Purpose" component={PurposeScreen} options={{ title: "Purpose",headerTitleAlign: 'center'}}/>
+        <Stack.Screen name="Explanation" component={ExplanationScreen} options={{ title: "What is ESG Data",headerTitleAlign: 'center'}}/>
+        <Stack.Screen name="How" component={HowScreen} options={{ title: "How to Invest with ESG Data",headerTitleAlign: 'center'}}/>
         <Stack.Screen name="Search" component={SearchScreen} />
         <Stack.Screen name="Stock Information" component={InfoScreen}/>
       </Stack.Navigator>
@@ -53,7 +53,6 @@ const HomeScreen = ({ navigation }) => {
       source = {require('./assets/ESG_11zon.jpg')}
       resizeMode={'contain'}/>
       <Button
-        radius={500}
         title="Our purpose"
         onPress={() => navigation.navigate("Purpose", { name: "Jane" })}
       />
@@ -73,36 +72,43 @@ const HomeScreen = ({ navigation }) => {
   );
 };
 const PurposeScreen = ({ navigation, route }) => {
+  const [loaded] = useFonts({Georgia: require('./assets/Fonts/Georgia.ttf'),})
   return (
-    <Text>
+    <View style={{flex: 1,backgroundColor: '#CEE3E7'}}>
+    <Text style={{fontSize:25, fontFamily:'Georgia'}}>
       The purpose of this application is to inform users about what ESG data is
       and how they can use it in informing their investment decisions.
     </Text>
+    </View>
   );
 };
 const ExplanationScreen = ({ navigation, route }) => {
   return (
-    <Text style={styles.text}>
+    <View style={{flex: 1,backgroundColor: '#CEE3E7'}}>
+    <Text style={{fontSize:20, fontFamily:'Georgia'}}>
       ESG stands for Environmental, Social, and Governance, and ESG data refers
       to information that is relevant to these three factors. Specifically, ESG
       data includes information related to a company's environmental impact,
-      social responsibility, and corporate governance practices. Environmental
+      social responsibility, and corporate governance practices. {'\n\n'}Environmental
       data may include a company's carbon emissions, energy use, waste
       management practices, and water usage, among other factors. Social data
       may include information about a company's labor practices, human rights
       policies, community engagement, and diversity and inclusion efforts.
       Governance data may include details about a company's management
       structure, board composition, executive compensation, and ethical
-      standards. ESG data is increasingly being used by investors and other
+      standards. {'\n\n'}ESG data is increasingly being used by investors and other
       stakeholders to evaluate a company's overall sustainability and potential
       long-term performance. Companies that prioritize ESG factors are seen as
       more responsible and better positioned for long-term success in a rapidly
       changing business landscape.
     </Text>
+    </View>
   );
 };
 const HowScreen = ({ navigation, route }) => {
-  return <Text>This is {route.params.name}'s profile</Text>;
+  return <View style={{flex: 1,backgroundColor: '#CEE3E7'}}>
+    <Text style={{fontSize:15, fontFamily:'Georgia'}}>This is {route.params.name}'s profile;</Text>
+    </View>
 };
 
 const SearchScreen = ({ navigation, route }) => {
@@ -288,5 +294,9 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     resizeMode: 'contain'
-  }
+  },
+  setFontSizePurpose: {
+    fontSize: 25,
+    fontFamily: 'Test'
+  },
 });
