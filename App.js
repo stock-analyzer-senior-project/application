@@ -98,6 +98,7 @@ const ExplanationScreen = ({ navigation, route }) => {
 const HowScreen = ({ navigation, route }) => {
   return <Text>This is {route.params.name}'s profile</Text>;
 };
+
 const SearchScreen = ({ navigation, route }) => {
   const [input, setInput] = useState("");
   return (
@@ -110,12 +111,15 @@ const SearchScreen = ({ navigation, route }) => {
       <SearchFilter data={data} input={input} setInput={setInput}/>
     </View>
   );
+  
 };
+//This is where clicking on a ticker will take you
 const InfoScreen = ({navigation, route}) => {
+  //Before returning here, we need to update info based on what stock it is
   return (
-    <Text>
-      Stock info!
-    </Text>
+     
+    <Text>Hello</Text>
+    
   );
 };
 

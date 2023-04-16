@@ -7,7 +7,6 @@ const Filter = ({data, input, setInput}) => {
     const navigation = useNavigation();
     return(
         //Need to make each option a button
-        
         <View style={{marginTop:10}}>
             <FlatList data={data} renderItem={({item}) => {
                 if(input === ""){
@@ -15,10 +14,10 @@ const Filter = ({data, input, setInput}) => {
                     return(
                         <View style={{marginVertical:10}}>
                             <Text style={{fontSize:14,fontWeight:"bold"}}>{item.Name}</Text>
-                            <Button
+                            {/* <Button
                                     title = {item.Symbol}
                                     onPress={() => navigation.navigate("Stock Information", { name: "Slide 1" })}
-                            />
+                            /> */}
                             <Text style={{borderColor:"gray",borderWidth:1,height:1,marginTop:5}}/>
                         </View>
                     )
