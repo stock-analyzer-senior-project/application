@@ -207,6 +207,10 @@ const LoginScreen = ({ navigation, route }) => {
   };
   return (
     <View>
+      <Image
+      style={{width: 397, height: 300, bottom:40}}
+      source = {require('./assets/StockAnalyzer.png')}
+      resizeMode={'contain'}/>
       <Text style={styles.title}> Welcome Back! </Text>
       <Pressable>
         <View style={styles.form}>
