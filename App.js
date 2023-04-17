@@ -29,17 +29,17 @@ const Tab = createBottomTabNavigator();
 function TabNavigator() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Purpose" component={PurposeScreen} options={{ headerShown: false,
-      tabBarIcon: ({ color, size }) => (<MaterialCommunityIcons name="flag-checkered" color={color} size={size} />), }} /> 
+      <Tab.Screen name="Purpose" component={PurposeScreen} options={{ headerShown: true,
+      tabBarIcon: ({ color, size }) => (<MaterialCommunityIcons name="flag-checkered" color={color} size={size} />), }} />
 
-      <Tab.Screen name="Explanation" component={ExplanationScreen} options={{ headerShown: false,
-      tabBarIcon: ({ color, size }) => (<MaterialCommunityIcons name="bookshelf" color={color} size={size} />), }} /> 
+      <Tab.Screen name="Explanation" component={ExplanationScreen} options={{ headerShown: true,
+      tabBarIcon: ({ color, size }) => (<MaterialCommunityIcons name="bookshelf" color={color} size={size} />), }} />
 
-      <Tab.Screen name="How" component={HowScreen} options={{ headerShown: false,
-      tabBarIcon: ({ color, size }) => (<MaterialCommunityIcons name="help" color={color} size={size} />), }} /> 
+      <Tab.Screen name="How" component={HowScreen} options={{ headerShown: true,
+      tabBarIcon: ({ color, size }) => (<MaterialCommunityIcons name="help" color={color} size={size} />), }} />
 
-      <Tab.Screen name="Search" component={StockInfoStack} options={{ headerShown: false,
-      tabBarIcon: ({ color, size }) => (<MaterialCommunityIcons name="magnify" color={color} size={size} />), }} /> 
+      <Tab.Screen name="Search" component={StockInfoStack} options={{ headerShown: true,
+      tabBarIcon: ({ color, size }) => (<MaterialCommunityIcons name="magnify" color={color} size={size} />), }} />
     </Tab.Navigator>
   );
 }
@@ -111,7 +111,7 @@ const ExplanationScreen = ({ navigation, route }) => {
 };
 const HowScreen = ({ navigation, route }) => {
   return <View style={{flex: 1,backgroundColor: '#CEE3E7'}}>
-    <Text style={{fontSize:15, fontFamily:'Georgia'}}>This is {route.params.name}'s profile;</Text>
+    <Text style={{fontSize:15, fontFamily:'Georgia'}}>This is {route.params.name}'s profile</Text>
     </View>
 };
 
@@ -127,7 +127,7 @@ const SearchScreen = ({ navigation, route }) => {
       <SearchFilter data={data} input={input} setInput={setInput}/>
     </View>
   );
-  
+
 };
 //This is where clicking on a ticker will take you
 const InfoScreen = ({ navigation, route }) => {
@@ -255,7 +255,7 @@ const LoginScreen = ({navigation, route}) => {
   const handleRegister  = () => {
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      // Signed in 
+      // Signed in
       const user = userCredential.user;
     })
     .catch((error) => {
@@ -268,7 +268,7 @@ const LoginScreen = ({navigation, route}) => {
   const handleLogin = () => {
   signInWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
-    // Signed in 
+    // Signed in
     const user = userCredential.user;
     console.log("Signed in as: ", user.email);
     navigation.navigate('Home', { screen: 'How', params: { name: user.email } });
