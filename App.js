@@ -20,6 +20,8 @@ import { set } from 'lodash';
 import { data } from './db';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
+import { Image } from 'react-native'
+import {useFonts} from 'expo-font'
 
 const Tab = createBottomTabNavigator();
 
@@ -69,29 +71,37 @@ const HomeScreen = ({ navigation, route }) => {
   return <View></View>;
 };
 const PurposeScreen = ({ navigation, route }) => {
+  const [loaded] = useFonts({Georgia: require('./assets/Fonts/Georgia.ttf'),})
   return (
-    <Text>
-      The purpose of this application is to inform users about what ESG data is and how they can use
-      it in informing their investment decisions.
+    <View style={{flex: 1,backgroundColor: '#CEE3E7'}}>
+    <Text style={{fontSize:25, fontFamily:'Georgia'}}>
+      The purpose of this application is to inform users about what ESG data is
+      and how they can use it in informing their investment decisions.
     </Text>
+    </View>
   );
 };
 const ExplanationScreen = ({ navigation, route }) => {
   return (
-    <Text style={styles.text}>
-      ESG stands for Environmental, Social, and Governance, and ESG data refers to information that
-      is relevant to these three factors. Specifically, ESG data includes information related to a
-      company's environmental impact, social responsibility, and corporate governance practices.
-      Environmental data may include a company's carbon emissions, energy use, waste management
-      practices, and water usage, among other factors. Social data may include information about a
-      company's labor practices, human rights policies, community engagement, and diversity and
-      inclusion efforts. Governance data may include details about a company's management structure,
-      board composition, executive compensation, and ethical standards. ESG data is increasingly
-      being used by investors and other stakeholders to evaluate a company's overall sustainability
-      and potential long-term performance. Companies that prioritize ESG factors are seen as more
-      responsible and better positioned for long-term success in a rapidly changing business
-      landscape.
+    <View style={{flex: 1,backgroundColor: '#CEE3E7'}}>
+    <Text style={{fontSize:20, fontFamily:'Georgia'}}>
+      ESG stands for Environmental, Social, and Governance, and ESG data refers
+      to information that is relevant to these three factors. Specifically, ESG
+      data includes information related to a company's environmental impact,
+      social responsibility, and corporate governance practices. {'\n\n'}Environmental
+      data may include a company's carbon emissions, energy use, waste
+      management practices, and water usage, among other factors. Social data
+      may include information about a company's labor practices, human rights
+      policies, community engagement, and diversity and inclusion efforts.
+      Governance data may include details about a company's management
+      structure, board composition, executive compensation, and ethical
+      standards. {'\n\n'}ESG data is increasingly being used by investors and other
+      stakeholders to evaluate a company's overall sustainability and potential
+      long-term performance. Companies that prioritize ESG factors are seen as
+      more responsible and better positioned for long-term success in a rapidly
+      changing business landscape.
     </Text>
+    </View>
   );
 };
 const HowScreen = ({ navigation, route }) => {
