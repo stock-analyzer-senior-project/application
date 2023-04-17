@@ -1,11 +1,11 @@
 import * as React from "react";
 import {Feather} from "react-native-feather";
-import { Button } from "react-native";
+import { Button, Dimensions } from 'react-native';
 //import { SearchBar } from 'react-native-elements';
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 //import { Picker } from "@react-native-picker/picker";
-import { useState } from "react";
+import { useState, useEffect } from 'react';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { TextInput, Pressable, TouchableOpacity, FlatList } from "react-native";
@@ -20,6 +20,44 @@ import { set } from "lodash";
 import { data } from "./db";
 import { Image } from 'react-native'
 import {useFonts} from 'expo-font'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { LineChart } from 'react-native-chart-kit';
+
+const Tab = createBottomTabNavigator();
+
+function TabNavigator() {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="Purpose" component={PurposeScreen} options={{ headerShown: false,
+      tabBarIcon: ({ color, size }) => (<MaterialCommunityIcons name="flag-checkered" color={color} size={size} />), }} /> 
+
+      <Tab.Screen name="Explanation" component={ExplanationScreen} options={{ headerShown: false,
+      tabBarIcon: ({ color, size }) => (<MaterialCommunityIcons name="bookshelf" color={color} size={size} />), }} /> 
+
+      <Tab.Screen name="How" component={HowScreen} options={{ headerShown: false,
+      tabBarIcon: ({ color, size }) => (<MaterialCommunityIcons name="help" color={color} size={size} />), }} /> 
+
+      <Tab.Screen name="Search" component={StockInfoStack} options={{ headerShown: false,
+      tabBarIcon: ({ color, size }) => (<MaterialCommunityIcons name="magnify" color={color} size={size} />), }} /> 
+    </Tab.Navigator>
+  );
+}
+
+const Stack = createNativeStackNavigator();
+
+const StockInfoStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Search Screen"
+        component={SearchScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen name="Stock Information" component={InfoScreen}/>
+    </Stack.Navigator>
+  );
+};
 
 export default function App() {
   const Stack = createNativeStackNavigator();
@@ -27,17 +65,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Login" component={LoginScreen} /> 
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ title: "Welcome",headerTitleAlign: 'center'}}
-        />
-        <Stack.Screen name="Purpose" component={PurposeScreen} options={{ title: "Purpose",headerTitleAlign: 'center'}}/>
-        <Stack.Screen name="Explanation" component={ExplanationScreen} options={{ title: "What is ESG Data",headerTitleAlign: 'center'}}/>
-        <Stack.Screen name="How" component={HowScreen} options={{ title: "How to Invest with ESG Data",headerTitleAlign: 'center'}}/>
-        <Stack.Screen name="Search" component={SearchScreen} />
-        <Stack.Screen name="Stock Information" component={InfoScreen}/>
+        {<Stack.Screen name="Login" component={LoginScreen} />}
+        <Stack.Screen name="Home" component={TabNavigator} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -45,32 +74,6 @@ export default function App() {
 
 //***Each Page of the Application***
 
-const HomeScreen = ({ navigation }) => {
-  return (
-    <View>
-      <Image
-      style={{width: 397, height: 350, bottom:40}}
-      source = {require('./assets/ESG_11zon.jpg')}
-      resizeMode={'contain'}/>
-      <Button
-        title="Our purpose"
-        onPress={() => navigation.navigate("Purpose", { name: "Jane" })}
-      />
-      <Button
-        title="What is ESG Data"
-        onPress={() => navigation.navigate("Explanation", { name: "Jane" })}
-      />
-      <Button
-        title="How to Invest with ESG Data"
-        onPress={() => navigation.navigate("How", { name: "Jane" })}
-      />
-      <Button
-        title="Company Search"
-        onPress={() => navigation.navigate("Search", { name: "Jane" })}
-      />
-    </View>
-  );
-};
 const PurposeScreen = ({ navigation, route }) => {
   const [loaded] = useFonts({Georgia: require('./assets/Fonts/Georgia.ttf'),})
   return (
@@ -82,6 +85,7 @@ const PurposeScreen = ({ navigation, route }) => {
     </View>
   );
 };
+
 const ExplanationScreen = ({ navigation, route }) => {
   return (
     <View style={{flex: 1,backgroundColor: '#CEE3E7'}}>
@@ -126,13 +130,120 @@ const SearchScreen = ({ navigation, route }) => {
   
 };
 //This is where clicking on a ticker will take you
-const InfoScreen = ({navigation, route}) => {
+const InfoScreen = ({ navigation, route }) => {
+  const [stockPrice, setStockPrice] = useState([]);
+  // fetch stock price using ticker symbol
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `https://financialmodelingprep.com/api/v3/enterprise-values/${route.params.paramKey.Symbol}?limit=10&apikey=53ae3092e991cc14ca13e3bfed2d3802`
+        );
+        const newData = await response.json();
+        setStockPrice(newData);
+      } catch {
+        console.log('error fetching data');
+      }
+    };
+
+    fetchData();
+    console.log('here is the stock data');
+    console.log(stockPrice);
+  }, []);
+
+  if (stockPrice[0]) {
+  }
   //Before returning here, we need to update info based on what stock it is
-  return (
-     
-    <Text>Hello</Text>
-    
-  );
+  // return <Text>{route.params.paramKey.Symbol}</Text>;
+  let explanation = '';
+  if (route.params.paramKey.Rating === 'AAA' || route.params.paramKey.Rating === 'AA') {
+    explanation = 'Leader';
+  } else if (
+    route.params.paramKey.Rating === 'A' ||
+    route.params.paramKey.Rating === 'BBB' ||
+    route.params.paramKey.Rating === 'BB'
+  ) {
+    explanation = 'Average';
+  } else {
+    explanation = 'Laggard';
+  }
+  if (stockPrice[0]) {
+    let stockPriceArr = [];
+    for (let i = stockPrice.length - 1; i >= 0; i--) {
+      stockPriceArr.push(stockPrice[i].stockPrice);
+    }
+    const lineChartData = {
+      labels: [
+        '2012',
+        '2013',
+        '2014',
+        '2015',
+        '2016',
+        '2017',
+        '2018',
+        '2019',
+        '2020',
+        '2021',
+        '2022',
+      ],
+      datasets: [
+        {
+          data: stockPriceArr,
+        },
+      ],
+    };
+
+    return (
+      <View>
+        <Text
+          style={{
+            textAlign: 'center',
+            fontSize: 30,
+          }}
+        >
+          {route.params.paramKey.Name} ({route.params.paramKey.Symbol})
+        </Text>
+        <Text
+          style={{
+            padding: 20,
+          }}
+        >
+          {console.log('here pt 2')}
+          {console.log(stockPrice)}
+          ESG Rating: {route.params.paramKey.Rating} ({explanation}){'\n'}
+          Stock Price: {route.params.paramKey.Price}
+        </Text>
+        <LineChart
+          data={lineChartData}
+          width={Dimensions.get('window').width}
+          height={220}
+          chartConfig={{
+            backgroundColor: 'blue',
+            backgroundGradientFrom: 'blue',
+            backgroundGradientTo: 'green',
+            decimalPlaces: 2, // optional, defaults to 2dp
+            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+            style: {
+              borderRadius: 16,
+            },
+            propsForDots: {
+              r: '6',
+              strokeWidth: '2',
+              stroke: '#ffa726',
+            },
+          }}
+          bezier
+          style={{
+            marginVertical: 8,
+            borderRadius: 16,
+          }}
+        />
+      </View>
+    );
+  } else {
+    return null;
+  }
 };
 
 const LoginScreen = ({navigation, route}) => {
@@ -160,7 +271,7 @@ const LoginScreen = ({navigation, route}) => {
     // Signed in 
     const user = userCredential.user;
     console.log("Signed in as: ", user.email);
-    navigation.navigate("Home");
+    navigation.navigate('Home', { screen: 'How', params: { name: user.email } });
     // ...
   })
   .catch((error) => {
